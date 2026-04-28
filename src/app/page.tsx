@@ -3,7 +3,6 @@ import TrustStrip from "@/components/home/TrustStrip";
 import Benefits from "@/components/home/Benefits";
 import FiveIngredients from "@/components/home/FiveIngredients";
 import HowItWorks from "@/components/home/HowItWorks";
-import VideoTestimonials from "@/components/home/VideoTestimonials";
 import Testimonials from "@/components/home/Testimonials";
 import FAQ from "@/components/home/FAQ";
 import CTA from "@/components/home/CTA";
@@ -13,10 +12,9 @@ export default function HomePage() {
     <>
       <Hero />
       <TrustStrip />
-      <FiveIngredients />
       <Benefits />
+      <FiveIngredients />
       <HowItWorks />
-      <VideoTestimonials />
       <Testimonials />
       <FAQ />
       <CTA />

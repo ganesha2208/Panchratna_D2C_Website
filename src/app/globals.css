@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --bg: 255 255 255;
-    --fg: 20 48 10;
+    --fg: 17 24 39; /* gray-900 */
   }
   html {
     scroll-behavior: smooth;
@@ -19,186 +19,88 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-poppins), system-ui, sans-serif;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
   }
   ::selection {
-    background: #6bb534;
+    background: #44801e;
     color: #ffffff;
   }
-  /* Custom scrollbar */
+  /* Subtle, neutral scrollbar */
   ::-webkit-scrollbar { width: 10px; height: 10px; }
-  ::-webkit-scrollbar-track { background: #f2faf2; }
+  ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #6bb534, #44801e);
+    background: #d1d5db; /* gray-300 */
     border-radius: 999px;
-    border: 2px solid #f2faf2;
+    border: 2px solid transparent;
+    background-clip: padding-box;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, #f97316, #c2450c);
+    background: #9ca3af; /* gray-400 */
+    background-clip: padding-box;
+    border: 2px solid transparent;
   }
 }
 
 @layer components {
   .container-px {
-    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
   }
+
+  /* Buttons — solid, confident, no gradients, subtle shadow on primary only */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700;
   }
   .btn-primary {
-    @apply btn bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800 shadow-soft hover:shadow-card;
+    @apply btn bg-brand-700 text-white hover:bg-brand-800 active:bg-brand-900;
   }
   .btn-accent {
-    @apply btn bg-orange-500 text-white hover:bg-orange-600 active:bg-orange-700 shadow-soft hover:shadow-glow;
+    @apply btn bg-orange-600 text-white hover:bg-orange-700 active:bg-orange-800;
   }
   .btn-secondary {
-    @apply btn bg-white text-brand-700 border border-brand-200 hover:bg-brand-50 hover:border-brand-300;
+    @apply btn border border-gray-200 bg-white text-gray-900 hover:border-gray-300 hover:bg-gray-50;
+  }
+  .btn-dark {
+    @apply btn bg-gray-900 text-white hover:bg-gray-800 active:bg-black;
   }
   .btn-ghost {
-    @apply btn text-brand-700 hover:bg-brand-50;
+    @apply btn text-gray-700 hover:bg-gray-100;
   }
   .btn-sm { @apply px-4 py-2 text-sm; }
-  .btn-md { @apply px-6 py-3 text-base; }
-  .btn-lg { @apply px-8 py-4 text-base md:text-lg; }
+  .btn-md { @apply px-5 py-2.5 text-sm; }
+  .btn-lg { @apply px-7 py-3.5 text-[15px]; }
+
   .section {
-    @apply py-16 md:py-24;
+    @apply py-20 md:py-28;
   }
+
+  /* Eyebrow — small uppercase tag */
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-brand-700 ring-1 ring-brand-100;
+    @apply inline-flex items-center text-xs font-semibold uppercase tracking-[0.18em] text-brand-700;
   }
   .eyebrow-orange {
-    @apply inline-flex items-center gap-2 rounded-full bg-orange-50 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-orange-700 ring-1 ring-orange-100;
+    @apply inline-flex items-center text-xs font-semibold uppercase tracking-[0.18em] text-orange-600;
   }
+
+  /* Card — neutral, subtle, no rings */
   .card {
-    @apply rounded-2xl bg-white shadow-soft ring-1 ring-brand-100/60;
+    @apply rounded-2xl border border-gray-200 bg-white;
   }
-  .glass {
-    @apply rounded-2xl border border-white/30 bg-white/60 shadow-soft backdrop-blur-xl;
+
+  /* Display headings */
+  .h-display {
+    @apply font-display font-extrabold tracking-tight text-gray-900;
   }
-  .glass-dark {
-    @apply rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl;
-  }
-  .gradient-text {
-    @apply bg-gradient-to-r from-brand-600 via-brand-500 to-orange-500 bg-clip-text text-transparent;
-    background-size: 200% 200%;
-    animation: gradientX 8s ease infinite;
-  }
-  .gradient-border {
-    position: relative;
-    background: linear-gradient(white, white) padding-box,
-      linear-gradient(135deg, #6bb534, #f97316) border-box;
-    border: 2px solid transparent;
-  }
-  .shimmer-overlay {
-    position: relative;
-    overflow: hidden;
-  }
-  .shimmer-overlay::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,0.5) 50%, transparent 70%);
-    transform: translateX(-100%);
-    animation: shimmer 2.5s linear infinite;
-    pointer-events: none;
+
+  /* Section header — eyebrow + heading + intro */
+  .section-eyebrow {
+    @apply mb-3 inline-flex items-center text-xs font-semibold uppercase tracking-[0.18em] text-brand-700;
   }
 }
 
-.noise-bg {
-  background-image:
-    radial-gradient(circle at 20% 20%, rgba(107, 181, 52, 0.10), transparent 40%),
-    radial-gradient(circle at 80% 30%, rgba(249, 115, 22, 0.10), transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(107, 181, 52, 0.08), transparent 40%);
-}
-
-.grain::before {
-  content: "";
-  position: absolute; inset: 0;
-  background-image: radial-gradient(rgba(42, 79, 21, 0.06) 1px, transparent 1px);
-  background-size: 18px 18px;
-  pointer-events: none;
-}
-
-/* Subtle leaf pattern for hero backgrounds */
-.leaf-pattern {
-  background-image:
-    radial-gradient(circle at 10% 10%, rgba(107, 181, 52, 0.12), transparent 30%),
-    radial-gradient(circle at 90% 30%, rgba(249, 115, 22, 0.10), transparent 35%),
-    radial-gradient(circle at 30% 90%, rgba(107, 181, 52, 0.08), transparent 30%);
-}
-
-/* Marquee animation for the trusted-by strip */
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.animate-marquee {
-  animation: marquee 30s linear infinite;
-}
-
-/* Animated gradient mesh background */
-.mesh-bg {
-  background:
-    radial-gradient(at 12% 18%, rgba(107, 181, 52, 0.32) 0px, transparent 50%),
-    radial-gradient(at 88% 22%, rgba(249, 115, 22, 0.28) 0px, transparent 50%),
-    radial-gradient(at 18% 84%, rgba(124, 192, 75, 0.26) 0px, transparent 50%),
-    radial-gradient(at 82% 78%, rgba(85, 161, 37, 0.30) 0px, transparent 50%),
-    radial-gradient(at 50% 50%, rgba(253, 178, 114, 0.18) 0px, transparent 50%);
-  background-size: 200% 200%;
-  animation: gradientX 18s ease-in-out infinite;
-}
-
-.mesh-bg-dark {
-  background:
-    radial-gradient(at 18% 22%, rgba(107, 181, 52, 0.40) 0px, transparent 50%),
-    radial-gradient(at 82% 28%, rgba(249, 115, 22, 0.30) 0px, transparent 50%),
-    radial-gradient(at 30% 88%, rgba(85, 161, 37, 0.32) 0px, transparent 50%),
-    radial-gradient(at 70% 80%, rgba(194, 69, 12, 0.26) 0px, transparent 50%);
-  background-color: #0a1f08;
-  background-size: 200% 200%;
-  animation: gradientX 22s ease-in-out infinite;
-}
-
-/* Soft grid lines used behind premium sections */
-.grid-pattern {
-  background-image:
-    linear-gradient(rgba(85, 161, 37, 0.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(85, 161, 37, 0.08) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
-          mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
-}
-
-/* Floating "blob" decorations */
-.blob {
-  position: absolute;
-  border-radius: 9999px;
-  filter: blur(60px);
-  opacity: 0.55;
-  animation: blob 18s ease-in-out infinite;
-}
-
-/* Text-stroke / outline display style */
-.outline-display {
-  -webkit-text-stroke: 1.5px rgba(85, 161, 37, 0.35);
-  color: transparent;
-}
-
-/* Cursor glow follower (set --x, --y from JS) */
-.cursor-spotlight {
-  position: fixed;
-  pointer-events: none;
-  width: 480px;
-  height: 480px;
-  left: var(--x, 50%);
-  top: var(--y, 50%);
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(249, 115, 22, 0.18), transparent 60%);
-  border-radius: 9999px;
-  z-index: 30;
-  mix-blend-mode: multiply;
-  transition: opacity 0.3s ease;
-  filter: blur(8px);
+/* Utility — soft top→bottom fade for image overlays */
+.fade-bottom {
+  -webkit-mask-image: linear-gradient(to bottom, #000 60%, transparent);
+          mask-image: linear-gradient(to bottom, #000 60%, transparent);
 }
 
 @media (prefers-reduced-motion: reduce) {

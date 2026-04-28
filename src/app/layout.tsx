@@ -5,7 +5,6 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import WhatsAppFab from "@/components/WhatsAppFab";
-import CursorGlow from "@/components/motion/CursorGlow";
 import { site } from "@/lib/site";
 
 const inter = Inter({
@@ -58,7 +57,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           children
         ) : (
           <>
-            <CursorGlow />
             <Header />
             <main className="min-h-[60vh]">{children}</main>
             <Footer />

@@ -7,20 +7,16 @@ import { site } from "@/lib/site";
 export default function WhatsAppFab() {
   return (
     <motion.a
-      initial={{ opacity: 0, scale: 0.6, y: 30 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ delay: 1.2, type: "spring", stiffness: 200, damping: 18 }}
-      whileHover={{ scale: 1.08 }}
-      whileTap={{ scale: 0.95 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.5, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       href={site.contact.whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-5 right-5 z-40 inline-flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-xl transition hover:bg-[#1ebe57] md:bottom-8 md:right-8"
+      className="fixed bottom-5 right-5 z-40 inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg ring-1 ring-black/5 transition-colors hover:bg-[#1ebe57] md:bottom-6 md:right-6"
     >
-      <MessageCircle className="h-6 w-6" />
-      <span className="absolute inset-0 animate-ping rounded-full bg-[#25D366] opacity-30" />
-      <span className="absolute -inset-1 -z-10 rounded-full bg-[#25D366]/30 blur-lg" />
+      <MessageCircle className="h-5 w-5" />
     </motion.a>
   );
 }
