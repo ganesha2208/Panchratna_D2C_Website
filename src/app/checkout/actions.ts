@@ -3,6 +3,7 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { panchratna } from "@/lib/product";
 import { site } from "@/lib/site";
+import { notifyNewOrder } from "@/lib/notify";
 import type { CartItem } from "@/store/cart";
 
 export type PlaceOrderResult =
@@ -89,6 +90,22 @@ export async function placeOrder(input: OrderInput): Promise<PlaceOrderResult> {
       console.error("[orders] insert failed", error);
       return { ok: false, error: "We couldn't save your order. Please call us." };
     }
+
+    await notifyNewOrder({
+      orderCode,
+      customerName: customer.fullName.trim(),
+      customerPhone: customer.phone.trim(),
+      customerEmail: customer.email.trim() || null,
+      city: customer.city.trim(),
+      state: customer.state.trim(),
+      pincode: customer.pincode.trim(),
+      items: priced,
+      subtotal,
+      shippingFee: shipping_fee,
+      total,
+      paymentMethod: "cod",
+    });
+
     return { ok: true, orderCode };
   } catch (err) {
     console.error("[orders] unexpected", err);

@@ -1,6 +1,7 @@
 "use server";
 
 import { createAdminClient } from "@/lib/supabase/admin";
+import { notifyNewLead } from "@/lib/notify";
 
 export type ContactSubmitResult =
   | { ok: true }
@@ -41,6 +42,9 @@ export async function submitContactLead(input: Input): Promise<ContactSubmitResu
       console.error("[contact] insert failed", error);
       return { ok: false, error: "Something went wrong. Please WhatsApp us instead." };
     }
+
+    await notifyNewLead({ name, phone, email, city, message });
+
     return { ok: true };
   } catch (err) {
     console.error("[contact] unexpected", err);
