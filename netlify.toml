@@ -1,0 +1,13 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Match your local Node version. Netlify auto-installs this on the build image.
+  NODE_VERSION = "20"
+  # Don't fail the build on the npm peer-dependency warnings we see in dev.
+  NPM_FLAGS = "--legacy-peer-deps=false"
+
+# Netlify auto-detects Next.js and applies the @netlify/plugin-nextjs runtime,
+# which handles middleware, server actions, ISR, and image optimization.
+# No explicit [[plugins]] block needed.
